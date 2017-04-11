@@ -95,8 +95,12 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *vm, char *options, void *reserved)
 		       JVMTI_VERSION_1, res);
 		return JNI_ERR;
 	}
+	jvmti->CreateRawMonitor("agentGreg", &(gdata->lock));
 	gdata->jvmti = jvmti;
 
+	jvmtiCapabilities capabilities;
+	capabilities.can_generate_garbage_collection_events = 1;
+	jvmti->AddCapabilities(&capabilities);
 
 	memset(&callbacks, 0x00, sizeof(callbacks));
 	callbacks.GarbageCollectionStart = gc_start;

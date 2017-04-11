@@ -2,6 +2,7 @@
 LIBNAME=agentGreg
 SOURCES=agentGreg.cpp
 J2SDK=/usr/lib/jvm/java-8-openjdk-amd64
+DACAPO=/home/gvaumour/Dev/benchmark/dacapo/dacapo-9.12-bach.jar
 
 # GNU Compiler options needed to build it
 COMMON_FLAGS=-fno-strict-aliasing -fPIC -fno-omit-frame-pointer
@@ -39,4 +40,4 @@ clean:
 
 # Simple tester
 test: all
-	LD_LIBRARY_PATH=`pwd` $(J2SDK)/bin/java -agentlib:$(LIBNAME) test.HelloWorld
+	LD_LIBRARY_PATH=`pwd` $(J2SDK)/bin/java -agentlib:$(LIBNAME) -jar $(DACAPO) -v avrora -s large  
